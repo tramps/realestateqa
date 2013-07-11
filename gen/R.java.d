@@ -1,0 +1,21 @@
+D:\work\RealEstateQq\realestateqa\gen\com\rong\realestateqq\R.java \
+ : D:\work\RealEstateQq\realestateqa\res\drawable-hdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\res\drawable-mdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\res\drawable-xhdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\res\drawable-xxhdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\res\layout\activity_main.xml \
+D:\work\RealEstateQq\realestateqa\res\layout\poll.xml \
+D:\work\RealEstateQq\realestateqa\res\menu\main.xml \
+D:\work\RealEstateQq\realestateqa\res\raw\jsoninternal \
+D:\work\RealEstateQq\realestateqa\res\values\dimens.xml \
+D:\work\RealEstateQq\realestateqa\res\values\strings.xml \
+D:\work\RealEstateQq\realestateqa\res\values\styles.xml \
+D:\work\RealEstateQq\realestateqa\res\values-sw600dp\dimens.xml \
+D:\work\RealEstateQq\realestateqa\res\values-sw720dp-land\dimens.xml \
+D:\work\RealEstateQq\realestateqa\res\values-v11\styles.xml \
+D:\work\RealEstateQq\realestateqa\res\values-v14\styles.xml \
+D:\work\RealEstateQq\realestateqa\bin\res\drawable-hdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\bin\res\drawable-mdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\bin\res\drawable-xhdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\bin\res\drawable-xxhdpi\ic_launcher.png \
+D:\work\RealEstateQq\realestateqa\bin\AndroidManifest.xml \

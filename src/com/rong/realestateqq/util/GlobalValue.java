@@ -9,6 +9,8 @@ import com.rong.realestateqq.model.CityPolicy;
 import com.rong.realestateqq.model.HpCity;
 
 public class GlobalValue {
+	public static final int ALL_CITY = 10000;
+
 	private static GlobalValue INSTANCE;
 	
 	private ArrayList<HpCity> mCitys;
@@ -20,6 +22,26 @@ public class GlobalValue {
 	private HashMap<Integer, ArrayList<CityPolicy>> mCityPoliMap;
 	
 	private GlobalValue() {
+	}
+	
+	public void clear() {
+		if (mCitys != null) {
+			mCitys.clear();
+		}
+		if (mElements != null) {
+			mElements.clear();
+		}
+		
+		if (mPolicies != null) {
+			mPolicies.clear();
+		}
+		
+		if (mDescs != null) {
+			mDescs.clear();
+		}
+		
+//		mCityElemMap.clear();
+//		mCityPoliMap.clear();
 	}
 
 	public static GlobalValue getInts() {
@@ -63,6 +85,32 @@ public class GlobalValue {
 		}
 		
 		return policies;
+	}
+	
+	public CityPolicy getPolicyById(int cityId, String token) {
+		for (CityPolicy p: mPolicies) {
+			if (p.getCityId() == cityId && p.getToken().equalsIgnoreCase(token)) {
+				return p;
+			}
+		}
+		
+		for (CityPolicy p: mPolicies) {
+			if (p.getCityId() == ALL_CITY && p.getToken().equalsIgnoreCase(token)) {
+				return p;
+			}
+		}
+		
+		return null;
+	}
+	
+	public CityElement getElementById(int elemId) {
+		for (CityElement elem : mElements) {
+			if (elem.getId() == elemId) {
+				return elem;
+			}
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<CityElement> getElementsById(int cityId) {

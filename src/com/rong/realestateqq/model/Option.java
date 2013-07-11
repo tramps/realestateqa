@@ -4,7 +4,15 @@ import com.rong.realestateqq.json.JSONBean;
 
 public class Option implements JSONBean{
 	public String mDesc;
-	public String mValue;
+	public int mValue;
+	
+	public Option(String desc, int value) {
+		mDesc = desc;
+		mValue = value;
+	}
+	
+	public Option() {
+	}
 	
 	public String getDesc() {
 		return mDesc;
@@ -12,10 +20,10 @@ public class Option implements JSONBean{
 	public void setDesc(String mDesc) {
 		this.mDesc = mDesc;
 	}
-	public String getValue() {
+	public int getValue() {
 		return mValue;
 	}
-	public void setValue(String mValue) {
+	public void setValue(int mValue) {
 		this.mValue = mValue;
 	}
 	

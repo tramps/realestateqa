@@ -42,6 +42,7 @@ public class JsonHelper {
 		try {
 			JSONObject jsob = new JSONObject(json);
 			GlobalValue global = GlobalValue.getInts();
+			global.clear();
 			if (jsob.has(HpCity.KEY)) {
 				String value = jsob.getString(HpCity.KEY);
 //				value = value.replaceAll(REMOVE_PATTERN, "");

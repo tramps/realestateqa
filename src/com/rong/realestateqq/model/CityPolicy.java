@@ -72,7 +72,29 @@ public class CityPolicy implements JSONBean{
 		return -1;
 	}
 	
-	public int getNextQuesElementId() {
+	public void setCustomerAnswer(int elemId, int selected) {
+		for (Case c : mData) {
+			for (Branch b : c.getRequires()) {
+				if (b.getId() == elemId) {
+					b.setSelected(selected);
+				}
+			}
+		}
+	}
+	
+	public void clearAnswer() {
+		for (Case c : mData) {
+			for (Branch b : c.getRequires()) {
+				b.setSelected(-1);
+			}
+		}
+	}
+	
+	public int getNextQuesElementId(int lastElemId, int seleted) {
+		if (lastElemId != -1) {
+			setCustomerAnswer(lastElemId, seleted);
+		}
+		
 		HashMap<Integer, Integer> mCountMap = new HashMap<Integer, Integer>();
 		
 		for (Case c : mData) {
