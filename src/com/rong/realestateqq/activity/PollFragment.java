@@ -1,4 +1,4 @@
-package com.rong.realestateqq;
+package com.rong.realestateqq.activity;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.rong.realestateqq.R;
 import com.rong.realestateqq.model.Option;
 
 public class PollFragment extends Fragment {

@@ -1,9 +1,9 @@
 package com.rong.realestateqq.json;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -31,7 +31,9 @@ import com.rong.realestateqq.model.CalcDesc;
 import com.rong.realestateqq.model.CityElement;
 import com.rong.realestateqq.model.CityPolicy;
 import com.rong.realestateqq.model.HpCity;
+import com.rong.realestateqq.util.FileUtil;
 import com.rong.realestateqq.util.GlobalValue;
+import com.rong.realestateqq.util.UpdataHelper;
 
 public class JsonHelper {
 	private static final String TAG = "JsonHelper";
@@ -76,6 +78,19 @@ public class JsonHelper {
 		} catch (JSONException e) {
 			throw new JsonParseException("input json format error!", e);
 		}
+	}
+	
+	
+	public static void parseJSONFromModel(Context context) throws JsonParseException {
+		File model = UpdataHelper.getJsonModelFile(context);
+		String json = FileUtil.readFileContent(model);
+		if (model == null) {
+			throw new JsonParseException("exception model" );
+		} else if (json == null){
+			throw new JsonParseException("exception read json");
+		}
+		
+		parseJSONFromString(json);
 	}
 
 	public static void parseJSONFromRaw(Context context) throws JsonParseException {

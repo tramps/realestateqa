@@ -3,6 +3,11 @@ package com.rong.realestateqq.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.rong.realestateqq.exception.JsonParseException;
+import com.rong.realestateqq.json.JsonHelper;
 import com.rong.realestateqq.model.CalcDesc;
 import com.rong.realestateqq.model.CityElement;
 import com.rong.realestateqq.model.CityPolicy;
@@ -10,6 +15,8 @@ import com.rong.realestateqq.model.HpCity;
 
 public class GlobalValue {
 	public static final int ALL_CITY = 10000;
+
+	private static final String TAG = "GlobalValue";
 
 	private static GlobalValue INSTANCE;
 	
@@ -50,6 +57,26 @@ public class GlobalValue {
 		}
 		
 		return INSTANCE;
+	}
+	
+	public static void init(Context context) {
+		boolean hasInited = false;
+		try {
+			JsonHelper.parseJSONFromModel(context);
+			Log.i(TAG, "init from model");
+			hasInited = true;
+		} catch (JsonParseException e) {
+			Log.e(TAG, e.getMessage());
+		}
+		
+		if (hasInited) return;
+		
+		try {
+			JsonHelper.parseJSONFromRaw(context);
+			Log.i(TAG, "init from raw");
+		} catch (JsonParseException e) {
+			Log.e(TAG, e.toString());
+		}
 	}
 	
 	public ArrayList<HpCity> getCities() {

@@ -1,4 +1,4 @@
-package com.rong.realestateqq;
+package com.rong.realestateqq.activity;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
-import com.rong.realestateqq.exception.JsonParseException;
-import com.rong.realestateqq.json.JsonHelper;
+import com.rong.realestateqq.R;
 import com.rong.realestateqq.model.CityElement;
 import com.rong.realestateqq.model.CityPolicy;
 import com.rong.realestateqq.model.HpCity;
@@ -41,28 +40,13 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// flContent = (FrameLayout) findViewById(R.id.content);
-
-		try {
-			JsonHelper.parseJSONFromRaw(getApplicationContext());
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		}
-
+		
 		mElements = new ArrayList<CityElement>();
 		mAnswers = new ArrayList<Integer>();
+		
 		Log.i(TAG, "load");
 		loadFragment(mStep);
-		// StringBuilder sb = new StringBuilder();
-		// try {
-		// JsonHelper.parseJSONFromRaw(getApplicationContext());
-		// } catch (JsonParseException e) {
-		// e.printStackTrace();
-		// }
-		//
-		// GlobalValue global = GlobalValue.getInts();
-		// sb.append(JsonHelper.parseListToJsonArray(global.getCities()).toString());
-		// tvContent.setText(sb.toString());
+		
 	}
 
 	private OnCheckedChangeListener mCheckChangedListener = new OnCheckedChangeListener() {
@@ -217,7 +201,8 @@ public class MainActivity extends FragmentActivity {
 			}
 			mStep--;
 			if (mStep == -1) {
-				mValue.clear();
+				if (mValue != null)
+					mValue.clear();
 				finish();
 			}
 
