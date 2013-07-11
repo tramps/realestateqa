@@ -15,7 +15,7 @@ public class CityPolicy implements JSONBean{
 	public int mPolicy_Id;
 	public int mCity_Id;
 	public Case[] mData;
-	public float mDefault;
+	public double mDefault;
 	public String mMeaning;
 	public String mToken;
 
@@ -43,10 +43,10 @@ public class CityPolicy implements JSONBean{
 	public void setData(Case[] mData) {
 		this.mData = mData;
 	}
-	public float getDefault() {
+	public double getDefault() {
 		return mDefault;
 	}
-	public void setDefault(float mDefault) {
+	public void setDefault(double mDefault) {
 		this.mDefault = mDefault;
 	}
 	public String getMeaning() {

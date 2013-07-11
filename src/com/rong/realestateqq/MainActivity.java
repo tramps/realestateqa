@@ -3,7 +3,7 @@ package com.rong.realestateqq;
 import java.util.ArrayList;
 
 import android.os.Bundle;
-import android.renderscript.Element;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity {
 	private int mCityId;
 	private int mStep = -1;
 	private ArrayList<CityElement> mElements;
+	private ArrayList<Integer> mAnswers;
 	private GlobalValue mValue;
 	private boolean mIsBack = false;
 	private int mCanBuy;
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		mElements = new ArrayList<CityElement>();
+		mAnswers = new ArrayList<Integer>();
 		Log.i(TAG, "load");
 		loadFragment(mStep);
 		// StringBuilder sb = new StringBuilder();
@@ -107,8 +109,11 @@ public class MainActivity extends FragmentActivity {
 				lastElemId = mElements.get(mStep - 1).getId();
 			}
 
-			int nextElemId = mCanBuyPolicy.getNextQuesElementId(lastElemId,
-					checkedId);
+			int nextElemId = -1;
+			if (mNumHavePolicy == null) {
+				nextElemId = mCanBuyPolicy.getNextQuesElementId(lastElemId,
+						checkedId);
+			}
 			if (nextElemId == -1) {
 				// Toast.makeText(this, "first step period",
 				// Toast.LENGTH_SHORT).show();
@@ -168,16 +173,22 @@ public class MainActivity extends FragmentActivity {
 				title = elem.getTitle();
 			}
 
+			mAnswers.add(checkedId);
+
 		}
 		if (mLoanBuy == 0) {
 			mStep++;
 		}
 
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction t = fm.beginTransaction();
 		PollFragment poll = PollFragment.newInstance(ops, title,
 				mCheckChangedListener);
-		t.replace(R.id.content, poll);
+		attachFragment(poll);
+	}
+
+	private void attachFragment(Fragment f) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction t = fm.beginTransaction();
+		t.replace(R.id.content, f);
 		t.addToBackStack(null);
 		t.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		// t.setCustomAnimations(arg0, arg1);
@@ -189,30 +200,36 @@ public class MainActivity extends FragmentActivity {
 		Log.i(TAG, "elems:" + mElements.size() + " mstep:" + mStep);
 		if (mLoanBuy != 0) {
 			mLoanBuy = 0;
+			mAnswers.remove(mStep);
+			// mLoanIndexPolicy = null;
 		} else {
 			try {
 				if (mStep > 0) {
 					CityElement elem = mElements.remove(mStep - 1);
-					clearAnswer(elem);
+					clearBranch(elem);
+					mAnswers.remove(mStep - 1);
 				}
 			} catch (Exception e) {
 				Log.e(TAG, e.getCause().toString());
-				mStep = mElements.size();
-				CityElement elem = mElements.remove(mStep - 1);
-				clearAnswer(elem);
+				// mStep = mElements.size();
+				// CityElement elem = mElements.remove(mStep - 1);
+				// clearAnswer(elem);
 			}
 			mStep--;
 			if (mStep == -1) {
 				mValue.clear();
 				finish();
 			}
+
+			if (mCanBuy <= 0)
+				mNumHavePolicy = null;
 		}
 
 		mIsBack = true;
 		super.onBackPressed();
 	}
 
-	private void clearAnswer(CityElement elem) {
+	private void clearBranch(CityElement elem) {
 		if (elem == null) {
 			return;
 		}
@@ -225,5 +242,31 @@ public class MainActivity extends FragmentActivity {
 		} else {
 			mCanBuyPolicy.setCustomerAnswer(elem.getId(), -1);
 		}
+	}
+
+	private void showResult(int canBuyNum, int loanIndex) {
+		if (canBuyNum > 0) {
+			// TODO
+		}
+	}
+
+	private void reStart() {
+		FragmentManager fm = getSupportFragmentManager();
+		fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+		for (CityElement e : mElements) {
+			clearBranch(e);
+		}
+
+		mStep = -1;
+		mElements.clear();
+		mAnswers.clear();
+		mLoanBuy = 0;
+
+		loadFragment(-1);
+	}
+
+	private void go2LastStep() {
+		onBackPressed();
 	}
 }
