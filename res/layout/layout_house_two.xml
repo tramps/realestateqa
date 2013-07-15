@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+	    <ImageView 
+	        android:id="@+id/iv_hourse_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_two_house"
+	        android:layout_marginLeft="2dp"
+	        />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_left"
+	        android:layout_below="@id/iv_hourse_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="首付3成"
+	         />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_rate_left"
+	        android:layout_below="@id/tv_pay_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="6.55%"
+	        android:textSize="24sp"
+	         />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_rate_left_detail"
+	        android:layout_below="@id/tv_pay_left"
+	        android:layout_toRightOf="@id/tv_pay_rate_left"
+	        android:layout_alignBottom="@id/tv_pay_rate_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom"
+	        android:text="基准利率85折"/>
+    
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+	    <ImageView 
+	        android:id="@+id/iv_hourse_right"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_two_house"
+	        android:layout_marginLeft="2dp"
+	        />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_right"
+	        android:layout_below="@id/iv_hourse_right"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="首付7成"
+	         />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_rate_right"
+	        android:layout_below="@id/tv_pay_right"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="7.42%"
+	        android:textSize="24sp"
+	         />
+	    
+	    <TextView 
+	        android:id="@+id/tv_pay_rate_right_detail"
+	        android:layout_below="@id/iv_hourse_right"
+	        android:layout_toRightOf="@id/tv_pay_rate_right"
+	        android:layout_alignBottom="@id/tv_pay_rate_right"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom"
+	        android:text="1.1倍利率"/>
+    
+    </RelativeLayout>
+    
+    </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/tv_base"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="基准利率：6.55%"
+        android:layout_gravity="center_horizontal"
+        />
+</LinearLayout>

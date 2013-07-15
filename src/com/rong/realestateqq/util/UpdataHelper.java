@@ -23,7 +23,7 @@ public class UpdataHelper {
 	
 	public static void updateModel(final Context context) {
 		long time = System.currentTimeMillis() / 1000;
-		String url = API + 0;
+		String url = API + time;
 		UpdateTask task = new UpdateTask(context, url);
 		task.setCallback(new Callback() {
 			

@@ -86,6 +86,16 @@ public class GlobalValue {
 		return mCitys;
 	}
 	
+	public String getCityNameById (int cityId) {
+		for (HpCity city: mCitys) {
+			if (city.getId() == cityId) {
+				return city.getName();
+			}
+		}
+		
+		return "woring city";
+	}
+	
 	public ArrayList<CityElement> getElements() {
 		if (mElements == null) {
 			mElements = new ArrayList<CityElement>();
@@ -124,6 +134,28 @@ public class GlobalValue {
 		for (CityPolicy p: mPolicies) {
 			if (p.getCityId() == ALL_CITY && p.getToken().equalsIgnoreCase(token)) {
 				return p;
+			}
+		}
+		
+		return null;
+	}
+	
+	public CalcDesc getCalcDescByElemId (int elemId, int cityId) {
+		Log.i(TAG, "elemId:" + elemId + "cityId:" + cityId);
+		if (elemId == -1 && cityId == -1) {
+			elemId = 1;
+			cityId = ALL_CITY;
+		}
+		
+		for (CalcDesc cd: mDescs) {
+			if (cd.getElementId() == elemId && cd.getCityId() == cityId) {
+				return cd;
+			}
+		}
+		
+		for (CalcDesc cd: mDescs) {
+			if (cd.getElementId() == elemId && cd.getCityId() == ALL_CITY) {
+				return cd;
 			}
 		}
 		

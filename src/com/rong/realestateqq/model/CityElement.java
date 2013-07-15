@@ -49,4 +49,14 @@ public class CityElement implements JSONBean{
 		this.mData = mData;
 	}
 	
+	public String getOptionDescByValue(int selected) {
+		for (Option o : mData) {
+			if (o.getValue() == selected) {
+				return o.getDesc();
+			}
+		}
+		
+		return null;
+	}
+	
 }

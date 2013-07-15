@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    
+	    <ImageView 
+	        android:id="@+id/iv_ques"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:background="@drawable/ic_question"
+	        />
+	    
+	    <TextView 
+	        android:id="@+id/tv_ques"
+	        android:layout_marginLeft="20dp"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="center_vertical"
+	        android:lineSpacingExtra="6dp"
+	        />
+    
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        >
+    
+	    <ImageView 
+	        android:id="@+id/iv_answer"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:background="@drawable/ic_answer"
+	        />
+	    
+	    <TextView 
+	        android:id="@+id/tv_answer"
+	        android:layout_marginLeft="20dp"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="center_vertical"
+	        android:lineSpacingExtra="6dp"
+	        />
+    
+    </LinearLayout>
+
+</LinearLayout>
