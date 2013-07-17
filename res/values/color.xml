@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bkg_title">#1aadf2</color>
+    <color name="bkg_color">#edf2f5</color>
+    <color name="tip_color">#666666</color>
 </resources>

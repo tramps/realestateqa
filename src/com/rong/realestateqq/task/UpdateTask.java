@@ -26,8 +26,7 @@ public class UpdateTask extends HandleMessageTask {
 			try {
 				mResult = BaseHttpsManager.executeGetRequest(mUrl);
 			} catch (Exception e) {
-				Log.e(TAG, e.getMessage());
-				Log.e(TAG, e.getCause().toString());
+				Log.e(TAG, e.toString());
 				return ECode.FAIL;
 			}
 		} 

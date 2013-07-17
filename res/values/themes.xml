@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme" parent="@android:style/Theme.Light">
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/bkg_color</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowNoTitle">true</item>
 

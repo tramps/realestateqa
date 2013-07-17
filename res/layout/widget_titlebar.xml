@@ -7,6 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
         android:background="@color/bkg_title"
         android:id="@+id/rl_left">
 	    <ImageView
@@ -25,7 +26,8 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:lines="1"
-        android:textSize="18sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

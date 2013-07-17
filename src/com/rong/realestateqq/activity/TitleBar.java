@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
@@ -106,6 +107,8 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 				itemView = new Button(context);
 				itemView.setId(menuItem.getItemId());
 				((Button)itemView).setText(menuItem.getTitle());
+				((Button)itemView).setTextSize(22);
+				((Button)itemView).setTextColor(Color.WHITE);
 			}
 			
 			itemView.setOnClickListener(this);

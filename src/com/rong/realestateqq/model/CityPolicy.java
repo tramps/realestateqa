@@ -72,14 +72,18 @@ public class CityPolicy implements JSONBean{
 		return -1;
 	}
 	
-	public void setCustomerAnswer(int elemId, int selected) {
+	public boolean setCustomerAnswer(int elemId, int selected) {
+		boolean isSet = false;
 		for (Case c : mData) {
 			for (Branch b : c.getRequires()) {
 				if (b.getId() == elemId) {
 					b.setSelected(selected);
+					isSet = true;
 				}
 			}
 		}
+		
+		return isSet;
 	}
 	
 	public void clearAnswer() {

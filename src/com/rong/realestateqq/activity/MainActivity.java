@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
 import com.rong.realestateqq.R;
 import com.rong.realestateqq.model.CalcDesc;
@@ -51,6 +49,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private static final String SETTING = "关于";
 	private static final String SHARE = "分享";
+	
+	private static final String SEPARATOR = ".";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,7 +64,6 @@ public class MainActivity extends BaseFragmentActivity {
 		Log.i(TAG, "load");
 		loadFragment(mStep);
 	}
-
 	
 
 	@Override
@@ -103,7 +102,27 @@ public class MainActivity extends BaseFragmentActivity {
 		@Override
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			if (!mIsBack) {
-				if (checkedId == -1) {
+				if (checkedId == -1 || mStep == -1) {
+					getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+				} else {
+					getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+				}
+				loadFragment(checkedId);
+			}
+			mIsBack = false;
+		}
+	};
+	
+	private OnClickListener mClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			if (!mIsBack) {
+				int checkedId = -1;
+				if (v != null ) {
+					checkedId = (Integer) v.getTag();
+				}
+				if (checkedId == -1 || mStep == -1) {
 					getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 				} else {
 					getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,7 +139,7 @@ public class MainActivity extends BaseFragmentActivity {
 		String title = "";
 		ArrayList<Option> ops = new ArrayList<Option>();
 		if (mStep == -1) {// first step
-			title = "您所在的城市";
+			title = "1.您所在的城市";
 			ArrayList<HpCity> cities = GlobalValue.getInts().getCities();
 			for (HpCity city : cities) {
 				Option op = new Option(city.getName(), city.getId());
@@ -216,7 +235,7 @@ public class MainActivity extends BaseFragmentActivity {
 				for (Option op : elem.getData()) {
 					ops.add(op);
 				}
-				title = elem.getTitle();
+				title = (mStep + 2) + SEPARATOR + elem.getTitle();
 			}
 
 		}
@@ -228,7 +247,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 		mDesc = mValue.getCalcDescByElemId(nextElemId, mCityId);
 		PollFragment poll = PollFragment.newInstance(ops, title, mDesc,
-				mCheckChangedListener);
+				mClickListener);
 		attachFragment(poll);
 	}
 
@@ -283,8 +302,12 @@ public class MainActivity extends BaseFragmentActivity {
 			getSupportActionBar().setTitle(TITLE_TEST);
 			((Button)getSupportActionBar().findViewById(R.id.setting)).setText(SETTING);
 		}
+		
+		if (mStep == 0) {
+			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		}
 
-		mIsBack = true;
+//		mIsBack = true;
 		super.onBackPressed();
 	}
 
@@ -292,14 +315,15 @@ public class MainActivity extends BaseFragmentActivity {
 		if (elem == null) {
 			return;
 		}
+		
 		if (mLoanIndexPolicy != null) {
-			mLoanIndexPolicy.setCustomerAnswer(elem.getId(), -1);
+			mLoanIndexPolicy.clearAnswer();
 			mLoanIndexPolicy = null;
 		} else if (mNumHavePolicy != null) {
-			mNumHavePolicy.setCustomerAnswer(elem.getId(), -1);
+			mNumHavePolicy.clearAnswer();
 			mNumHavePolicy = null;
 		} else {
-			mCanBuyPolicy.setCustomerAnswer(elem.getId(), -1);
+			mCanBuyPolicy.clearAnswer();
 		}
 	}
 
@@ -336,6 +360,7 @@ public class MainActivity extends BaseFragmentActivity {
 		public void onClick(View v) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 			getSupportActionBar().setTitle(TITLE_TEST);
+			((Button)getSupportActionBar().findViewById(R.id.setting)).setText(SETTING);
 			reStart();
 		}
 	};
