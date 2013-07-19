@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:id="@+id/ll_house"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+
+        <FrameLayout
+            android:id="@+id/fl_house"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+        </FrameLayout>
     </LinearLayout>
-    
-    <LinearLayout 
-        android:id="@+id/ll_poll"
-        android:orientation="vertical"
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/divider_light" />
+
+    <LinearLayout
+        android:id="@+id/ll_poll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical" >
     </LinearLayout>
-    
-    <Button 
+
+    <Button
         android:id="@+id/btn_restart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_round"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:text="重新计算"
-        />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>

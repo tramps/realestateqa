@@ -24,6 +24,10 @@ import com.rong.realestateqq.model.CityPolicy;
 import com.rong.realestateqq.model.HpCity;
 import com.rong.realestateqq.model.Option;
 import com.rong.realestateqq.util.GlobalValue;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
 
 public class MainActivity extends BaseFragmentActivity {
 	private static final String TAG = "MainActivity";
@@ -41,16 +45,34 @@ public class MainActivity extends BaseFragmentActivity {
 	private int mCanBuy;
 	private int mLeftBuy;
 	private int mLoanBuy;
-	
+
 	private boolean mIsResulted = false;
-	
+
 	private static final String TITLE_TEST = "购房资格测试";
 	private static final String TITLE_RESULT = "测试结果";
+	private static final String TITLE_RESULT_NONE = "您目前没有买房资格";
+	private static final String TITLE_RESULT_ONE = "您可以购买一套房";
+	private static final String TITLE_RESULT_TWO = "您可以购买两套房";
 
 	private static final String SETTING = "关于";
 	private static final String SHARE = "分享";
-	
+
 	private static final String SEPARATOR = ".";
+	
+	private static final String SHARE_PREFIX = "我的#房贷资格测试#结果：“";
+	private static final String SHARE_PREFIX_TWO_BUG = "可以在";
+	private static final String SHARE_PREFIX_TWO_BUG_SUFFIX = "贷款买房";
+	private static final String SHARE_PREFIX_TWO_BUG_LOAN_TWO = "，首付3成，利率85折";
+	private static final String SHARE_PREFIX_TWO_BUG_LOAN_ONE = "，首付7成，利率1.1";
+	
+	private static final String SHARE_PREFIX_ALL_BUY_SUFFIX = "全款买房";
+	private static final String SHARE_PREFIX_ALL_BUG_PREFIX = "只能在";
+	
+	private static final String SHARE_PREFFIX_NO_BUY_PREFIX = "不能在";
+	private static final String SHARE_PREFIX_NO_BUY_SUFFIX = "买房";
+	
+	private static final String SHARE_LINK = "”。你也来测试一下吧，测试地址：http://www.rong360.com/calculator/xiangou";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,33 +85,82 @@ public class MainActivity extends BaseFragmentActivity {
 
 		Log.i(TAG, "load");
 		loadFragment(mStep);
+		
+		initUmeng();
+	}
+
+	private void initUmeng() {
+//		com.umeng.common.Log.LOG = true;
+		MobclickAgent.updateOnlineConfig(this);
+		UmengUpdateAgent.setUpdateAutoPopup(false);
+		UmengUpdateAgent.update(this);
+		UmengUpdateAgent.setUpdateListener(mUpdateCallback);
 	}
 	
+	private UmengUpdateListener mUpdateCallback = new UmengUpdateListener() {
+		@Override
+		public void onUpdateReturned(int updateStatus,
+				UpdateResponse updateInfo) {
+			switch (updateStatus) {
+			case 0: // has update
+				UmengUpdateAgent.showUpdateDialog(MainActivity.this, updateInfo);
+				break;
+			}
+
+		}
+	};
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, R.id.setting, 0, SETTING);
 		return false;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.setting) {
-			Button btn = (Button)getSupportActionBar().findViewById(R.id.setting);
+			Button btn = (Button) getSupportActionBar().findViewById(
+					R.id.setting);
 			if (btn.getText().equals(SETTING)) {
 				Intent intent = new Intent(this, AboutActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.push_up, R.anim.top_up);
 			} else {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_TITLE, "share");
-				intent.putExtra(Intent.EXTRA_TEXT, "我的#购房资格测试#结果：“可以在北京贷款买房”。你也来测试一下吧，\n 测试地址：http://www.rong360.com/calculator/xiangou");
+				String shareContent = getShareContent();
+				intent.putExtra(
+						Intent.EXTRA_TEXT, shareContent);
 				startActivity(Intent.createChooser(intent, "Please choose..."));
 			}
-			
+
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private String getShareContent() {
+		StringBuilder sb = new StringBuilder();
+		String ciyt = mValue.getCityNameById(mCityId);
+		sb.append(SHARE_PREFIX);
+		if (mLoanBuy == 0 && (mLeftBuy > 0)) {
+			sb.append(SHARE_PREFIX_ALL_BUG_PREFIX).append(ciyt).append(SHARE_PREFIX_ALL_BUY_SUFFIX);
+		} else if (mLeftBuy == 2) {
+			if (mLoanBuy == 1) {
+				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_TWO);
+			} else if (mLoanBuy == 2) {
+				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
+			} 
+		} else if (mLeftBuy == 1) {
+			sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
+		} else if (mLeftBuy <= 0) {
+			sb.append(SHARE_PREFFIX_NO_BUY_PREFIX).append(ciyt).append(SHARE_PREFIX_NO_BUY_SUFFIX);
 		}
 		
-		return super.onOptionsItemSelected(item);
+		sb.append(SHARE_LINK);
+		return sb.toString();
 	}
 
 	@Override
@@ -112,14 +183,14 @@ public class MainActivity extends BaseFragmentActivity {
 			mIsBack = false;
 		}
 	};
-	
+
 	private OnClickListener mClickListener = new OnClickListener() {
-		
+
 		@Override
 		public void onClick(View v) {
 			if (!mIsBack) {
 				int checkedId = -1;
-				if (v != null ) {
+				if (v != null) {
 					checkedId = (Integer) v.getTag();
 				}
 				if (checkedId == -1 || mStep == -1) {
@@ -153,8 +224,8 @@ public class MainActivity extends BaseFragmentActivity {
 				Log.e(TAG, "data error, no corresponding city" + mCityId);
 				finish();
 			}
-//			Log.i(TAG, "cityPolicy:" + mCanBuyPolicy.getCityId() + "  "
-//					+ mCanBuyPolicy.getMeaning());
+			// Log.i(TAG, "cityPolicy:" + mCanBuyPolicy.getCityId() + "  "
+			// + mCanBuyPolicy.getMeaning());
 		}
 
 		int nextElemId = -1;
@@ -176,12 +247,13 @@ public class MainActivity extends BaseFragmentActivity {
 				// return;
 				mCanBuy = mCanBuyPolicy.getPolicyResult();
 				if (mCanBuy <= 0) {
-//					Toast.makeText(this, "SORRY, BUT YOU CAN'T BUY!",
-//							Toast.LENGTH_SHORT).show();
+					// Toast.makeText(this, "SORRY, BUT YOU CAN'T BUY!",
+					// Toast.LENGTH_SHORT).show();
 					showResult();
 					mAnswers.add(checkedId);
 					mStep++;
-					Log.i(TAG, "elem size: " + mElements.size() + " answers size: " + mAnswers.size());
+					Log.i(TAG, "elem size: " + mElements.size()
+							+ " answers size: " + mAnswers.size());
 					return;
 				}
 
@@ -197,13 +269,14 @@ public class MainActivity extends BaseFragmentActivity {
 				if (nextElemId == -1) {
 					mLeftBuy = mCanBuy - mNumHavePolicy.getPolicyResult();
 					if (mLeftBuy <= 0) {
-//						Toast.makeText(this, "SORRY, BUT YOU BUY TOO MUCH!",
-//								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(this, "SORRY, BUT YOU BUY TOO MUCH!",
+						// Toast.LENGTH_SHORT).show();
 						showResult();
 						mAnswers.add(checkedId);
 						mStep++;
-						
-						Log.i(TAG, "elem size: " + mElements.size() + " answers size: " + mAnswers.size());
+
+						Log.i(TAG, "elem size: " + mElements.size()
+								+ " answers size: " + mAnswers.size());
 						return;
 					}
 
@@ -224,9 +297,9 @@ public class MainActivity extends BaseFragmentActivity {
 			}
 
 			mAnswers.add(checkedId);
-			
+
 			if (mLoanBuy != 0) {
-//				title = "还可以买" + mLeftBuy + "套房;" + "贷款算" + mLoanBuy + "贷款";
+				// title = "还可以买" + mLeftBuy + "套房;" + "贷款算" + mLoanBuy + "贷款";
 				showResult();
 				return;
 			} else {
@@ -242,8 +315,9 @@ public class MainActivity extends BaseFragmentActivity {
 		if (mLoanBuy == 0) {
 			mStep++;
 		}
-		
-		Log.i(TAG, "elem size: " + mElements.size() + " answers size: " + mAnswers.size());
+
+		Log.i(TAG, "elem size: " + mElements.size() + " answers size: "
+				+ mAnswers.size());
 
 		mDesc = mValue.getCalcDescByElemId(nextElemId, mCityId);
 		PollFragment poll = PollFragment.newInstance(ops, title, mDesc,
@@ -254,10 +328,10 @@ public class MainActivity extends BaseFragmentActivity {
 	private void attachFragment(Fragment f) {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction t = fm.beginTransaction();
+		t.setCustomAnimations(R.anim.right_in, R.anim.left_out);
 		t.replace(R.id.content, f);
 		t.addToBackStack(null);
-		t.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		// t.setCustomAnimations(arg0, arg1);
+		t.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		t.commit();
 	}
 
@@ -270,7 +344,9 @@ public class MainActivity extends BaseFragmentActivity {
 			} else {
 				mStep--;
 			}
-			mAnswers.remove(mStep);
+			if (mStep >= 0 && mAnswers.size() > mStep) {
+				mAnswers.remove(mStep);
+			}
 			mIsResulted = false;
 			// mLoanIndexPolicy = null;
 		} else {
@@ -297,17 +373,18 @@ public class MainActivity extends BaseFragmentActivity {
 			if (mCanBuy <= 0)
 				mNumHavePolicy = null;
 		}
-		
-		if (getSupportActionBar().getTitleText().getText().equals(TITLE_RESULT)) {
+
+		if (!getSupportActionBar().getTitleText().getText().equals(TITLE_TEST)) {
 			getSupportActionBar().setTitle(TITLE_TEST);
-			((Button)getSupportActionBar().findViewById(R.id.setting)).setText(SETTING);
+			((Button) getSupportActionBar().findViewById(R.id.setting))
+					.setText(SETTING);
 		}
-		
+
 		if (mStep == 0) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 		}
 
-//		mIsBack = true;
+		// mIsBack = true;
 		super.onBackPressed();
 	}
 
@@ -315,7 +392,7 @@ public class MainActivity extends BaseFragmentActivity {
 		if (elem == null) {
 			return;
 		}
-		
+
 		if (mLoanIndexPolicy != null) {
 			mLoanIndexPolicy.clearAnswer();
 			mLoanIndexPolicy = null;
@@ -331,9 +408,16 @@ public class MainActivity extends BaseFragmentActivity {
 		mIsResulted = true;
 		ResultFragment rf = ResultFragment.newInstance(mCityId, mLeftBuy,
 				mLoanBuy, mAnswers, mElements, mClearListener);
-		
-		getSupportActionBar().setTitle(TITLE_RESULT);
-		((Button)getSupportActionBar().findViewById(R.id.setting)).setText(SHARE);
+		String title = TITLE_RESULT_NONE;
+		if (mLeftBuy == 2) {
+			title = TITLE_RESULT_TWO;
+		} else if (mLeftBuy == 1) {
+			title = TITLE_RESULT_ONE;
+		}
+		getSupportActionBar().setTitle(title);
+
+		((Button) getSupportActionBar().findViewById(R.id.setting))
+				.setText(SHARE);
 		attachFragment(rf);
 	}
 
@@ -360,7 +444,8 @@ public class MainActivity extends BaseFragmentActivity {
 		public void onClick(View v) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 			getSupportActionBar().setTitle(TITLE_TEST);
-			((Button)getSupportActionBar().findViewById(R.id.setting)).setText(SETTING);
+			((Button) getSupportActionBar().findViewById(R.id.setting))
+					.setText(SETTING);
 			reStart();
 		}
 	};

@@ -8,6 +8,14 @@
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_no_house"
 	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="2dp"
+	        android:layout_marginTop="54dp"
+	        />
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/base_ratio_color"
+	        android:text="基准利率： 6.55%"
+	        android:layout_marginTop="54dp"
+	        android:layout_gravity="center_horizontal"
 	        />
 </LinearLayout>

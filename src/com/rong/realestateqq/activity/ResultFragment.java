@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -70,7 +71,8 @@ public class ResultFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 
 		Activity ac = getActivity();
-		LinearLayout llHouse = (LinearLayout) ac.findViewById(R.id.ll_house);
+//		LinearLayout llHouse = (LinearLayout) ac.findViewById(R.id.ll_house);
+		FrameLayout flHouse = (FrameLayout) ac.findViewById(R.id.fl_house);
 		LinearLayout llPoll = (LinearLayout) ac.findViewById(R.id.ll_poll);
 		Button btnRestart = (Button) ac.findViewById(R.id.btn_restart);
 		btnRestart.setOnClickListener(mListener);
@@ -91,7 +93,7 @@ public class ResultFragment extends Fragment {
 				index = 4;
 			}
 		}
-		llHouse.addView(LayoutInflater.from(ac).inflate(mHouseLayout[index],
+		flHouse.addView(LayoutInflater.from(ac).inflate(mHouseLayout[index],
 				null));
 
 		ArrayList<String> items = new ArrayList<String>();

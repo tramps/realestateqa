@@ -27,7 +27,7 @@ public class PollFragment extends Fragment {
 	private TextView tvTitle;
 	private LinearLayout rgOption;
 	private TextView tvTips;
-	private ListView lvSample;
+	private LinearLayout lvSample;
 	private SampleAdapter mAdapter;
 
 	private ArrayList<Option> mOptions;
@@ -80,7 +80,7 @@ public class PollFragment extends Fragment {
 		rgOption = (LinearLayout) ac.findViewById(R.id.ll_option);
 //		rgOption.removeAllViewsInLayout();
 		tvTips = (TextView) ac.findViewById(R.id.tv_tip);
-		lvSample = (ListView) ac.findViewById(R.id.lv_sample);
+		lvSample = (LinearLayout) ac.findViewById(R.id.lv_sample);
 
 		LayoutParams params = new LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -123,7 +123,9 @@ public class PollFragment extends Fragment {
 			}
 
 			mAdapter = new SampleAdapter(ac, samples);
-			lvSample.setAdapter(mAdapter);
+			for (int i = 0; i < mAdapter.getCount(); i++) {
+				lvSample.addView(mAdapter.getView(i, null, null));
+			}
 		}
 	}
 	
@@ -138,6 +140,9 @@ public class PollFragment extends Fragment {
 
 		@Override
 		public int getCount() {
+			if (mOps == null) {
+				return 0;
+			}
 			return mOps.size();
 		}
 
@@ -194,6 +199,9 @@ public class PollFragment extends Fragment {
 
 		@Override
 		public int getCount() {
+			if (mSample == null) {
+				return 0;
+			}
 			return mSample.size();
 		}
 

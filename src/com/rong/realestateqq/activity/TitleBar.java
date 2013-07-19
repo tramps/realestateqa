@@ -40,31 +40,39 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 	private Fragment mFragment;
 	private MenuImpl mMenuImpl;
 	private Map<View, MenuItem> mMenuItemMap;
-
+	
 	public TitleBar(Context context) {
-		this(context, (Fragment) null);
+		this(context, true);
 	}
 
-	public TitleBar(Context context, Fragment fragment) {
-		this(context, (AttributeSet) null, fragment);
+	public TitleBar(Context context, boolean isCenter) {
+		this(context, (Fragment) null, isCenter);
 	}
 
-	public TitleBar(Context context, AttributeSet attrs) {
-		this(context, attrs, null);
+	public TitleBar(Context context, Fragment fragment, boolean isCenter) {
+		this(context, (AttributeSet) null, fragment, isCenter);
 	}
 
-	public TitleBar(Context context, AttributeSet attrs, Fragment fragment) {
-		this(context, attrs, R.attr.titleBarStyle, fragment);
+	public TitleBar(Context context, AttributeSet attrs, boolean isCenter) {
+		this(context, attrs, null, isCenter);
+	}
+
+	public TitleBar(Context context, AttributeSet attrs, Fragment fragment, boolean isCenter) {
+		this(context, attrs, R.attr.titleBarStyle, fragment, isCenter);
 	}
 
 	public TitleBar(Context context, AttributeSet attrs, int defStyle,
-			Fragment fragment) {
+			Fragment fragment, boolean isCenter) {
 		super(context, attrs, defStyle);
 		mMenuItemMap = new HashMap<View, MenuItem>();
 		mFragment = fragment;
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.widget_titlebar, this);
+		if (isCenter) {
+			inflater.inflate(R.layout.widget_titlebar, this);
+		} else {
+			inflater.inflate(R.layout.widget_titlebar_aligned, this);
+		}
 		initElements();
 		initHomeAndBack();
 		initMenuItems();
@@ -75,7 +83,7 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 		mTitle = (TextView) findViewById(R.id.tv_title);
 		mBack.setOnClickListener(this);
 //		mHome.setOnClickListener(this);
-		mBack.setVisibility(View.GONE);
+		mBack.setVisibility(View.INVISIBLE);
 	}
 
 	private void initHomeAndBack() {
@@ -102,7 +110,6 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 				itemView = new ImageView(context);
 				itemView.setId(menuItem.getItemId());
 				((ImageView)itemView).setImageDrawable(menuItem.getIcon());
-//				itemView.setBackgroundResource(R.drawable.bkg_title_press);
 			} else {
 				itemView = new Button(context);
 				itemView.setId(menuItem.getItemId());
@@ -110,6 +117,7 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 				((Button)itemView).setTextSize(22);
 				((Button)itemView).setTextColor(Color.WHITE);
 			}
+			itemView.setBackgroundResource(R.drawable.bkg_title);
 			
 			itemView.setOnClickListener(this);
 			itemView.setPadding(margin, 0, margin, 0);

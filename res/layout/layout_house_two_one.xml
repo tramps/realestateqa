@@ -10,14 +10,17 @@
         android:orientation="horizontal">
         
     <RelativeLayout 
+        android:layout_marginLeft="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_left"
+	        android:layout_marginTop="54dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_two_house"
+	        android:layout_centerHorizontal="true"
 	        android:layout_marginLeft="2dp"
 	        />
 	    
@@ -27,6 +30,10 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="首付7成"
+	        
+	        android:layout_marginTop="18dp"
+	        android:textColor="@color/ratio_color"
+	        android:textSize="14sp"
 	         />
 	    
 	    <TextView 
@@ -36,6 +43,8 @@
 	        android:layout_height="wrap_content"
 	        android:text="7.42%"
 	        android:textSize="24sp"
+	        android:layout_marginTop="5dp"
+	        android:textColor="@color/ratio_color"
 	         />
 	    
 	    <TextView 
@@ -46,20 +55,22 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom"
+	        android:textSize="14sp"
 	        android:text="1.1倍利率"/>
     
     </RelativeLayout>
     
     <RelativeLayout 
+        android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_right"
+	        android:layout_marginTop="54dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_two_house"
-	        android:layout_marginLeft="2dp"
 	        />
 	    
 	    <TextView 
@@ -70,6 +81,8 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="全款购买"
+	        android:layout_marginTop="18dp"
+	        android:textSize="24sp"
 	         />
     
     </RelativeLayout>
@@ -78,10 +91,11 @@
     
     <TextView 
         android:id="@+id/tv_base"
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="基准利率：6.55%"
+        android:textColor="@color/base_ratio_color"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         />
 </LinearLayout>

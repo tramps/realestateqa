@@ -7,13 +7,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:background="@color/bkg_title"
-        android:id="@+id/rl_left">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+      	android:background="@drawable/bkg_title"
+        android:id="@+id/back">
 	    <ImageView
-	        android:id="@+id/back"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:clickable="false"
+	        android:focusable="false"
 	        android:layout_centerVertical="true"
 	        android:duplicateParentState="true"
 	        android:src="@drawable/ic_back"/>
@@ -23,7 +25,7 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:lines="1"
         android:textSize="22sp"

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.rong.realestateqq.R;
+import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActionBar extends Activity{
 	private static final String TAG = BaseActionBar.class.getSimpleName();
@@ -34,13 +35,13 @@ public abstract class BaseActionBar extends Activity{
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		MobclickAgent.onPause(this);
+		MobclickAgent.onPause(this);
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		MobclickAgent.onResume(this);
+		MobclickAgent.onResume(this);
 	}
 
 	protected int getLayout() {
@@ -59,10 +60,21 @@ public abstract class BaseActionBar extends Activity{
 		return super.onOptionsItemSelected(item);
 	}
 	
-	
 	public TitleBar getSupportActionBar() {
+		return getSupportActionBar(true);
+	}
+	
+	public TitleBar getSupportActionBar(boolean isCenter) {
 		if (mTitleBar == null) {
-			mTitleBar = new TitleBar(this);
+			mTitleBar = new TitleBar(this, isCenter);
+			mContainer.addView(mTitleBar);
+		}
+		return mTitleBar;
+	}
+	
+	public TitleBar getSupportActionBar(boolean isCenter, boolean bForceReload) {
+		if (mTitleBar == null || bForceReload) {
+			mTitleBar = new TitleBar(this, isCenter);
 			mContainer.addView(mTitleBar);
 		}
 		return mTitleBar;

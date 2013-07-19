@@ -33,7 +33,7 @@ import com.rong.realestateqq.model.CityPolicy;
 import com.rong.realestateqq.model.HpCity;
 import com.rong.realestateqq.util.FileUtil;
 import com.rong.realestateqq.util.GlobalValue;
-import com.rong.realestateqq.util.UpdataHelper;
+import com.rong.realestateqq.util.NetHelper;
 
 public class JsonHelper {
 	private static final String TAG = "JsonHelper";
@@ -47,10 +47,16 @@ public class JsonHelper {
 			global.clear();
 			if (jsob.has(HpCity.KEY)) {
 				String value = jsob.getString(HpCity.KEY);
-//				value = value.replaceAll(REMOVE_PATTERN, "");
-//				value = value.substring(1, value.length() -1);
-//				value = "[" + value + "]";
-				parseJSONToList(HpCity.class, global.getCities(), new JSONArray(value));
+				try {
+					parseJSONToList(HpCity.class, global.getCities(), new JSONArray(value));
+				} catch (Exception e) {
+					Log.e(TAG, "hpcity json error");
+					Log.e(TAG, e.toString());
+					value = value.replaceAll(REMOVE_PATTERN, "");
+					value = value.substring(1, value.length() -1);
+					value = "[" + value + "]";
+					parseJSONToList(HpCity.class, global.getCities(), new JSONArray(value));
+				}
 			} else {
 				throw new JsonParseException("no hpcity data");
 			}
@@ -82,7 +88,7 @@ public class JsonHelper {
 	
 	
 	public static void parseJSONFromModel(Context context) throws JsonParseException {
-		File model = UpdataHelper.getJsonModelFile(context);
+		File model = NetHelper.getJsonModelFile(context);
 		String json = FileUtil.readFileContent(model);
 		if (model == null) {
 			throw new JsonParseException("exception model" );

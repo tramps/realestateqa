@@ -3,4 +3,11 @@
     <color name="bkg_title">#1aadf2</color>
     <color name="bkg_color">#edf2f5</color>
     <color name="tip_color">#666666</color>
+    <color name="ratio_color">#e74c3c</color>
+    <color name="result_color">#1aadf2</color>
+    <color name="base_ratio_color">#999999</color>
+    <color name="rong_detail_color">#666666</color>
+    
+    <color name="umeng_fb_color_btn_pressed">#1495F7</color>
+    <color name="umeng_fb_color_btn_normal">#333333</color>
 </resources>

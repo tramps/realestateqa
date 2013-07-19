@@ -33,10 +33,11 @@
         >
     </RadioGroup>
     
-    <ListView 
+    <LinearLayout 
         android:id="@+id/lv_sample"
         android:layout_marginTop="20dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </LinearLayout>
 </LinearLayout>
