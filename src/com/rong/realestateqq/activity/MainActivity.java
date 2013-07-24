@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -31,7 +30,6 @@ import com.umeng.update.UpdateResponse;
 
 public class MainActivity extends BaseFragmentActivity {
 	private static final String TAG = "MainActivity";
-	private FrameLayout flContent;
 	private CityPolicy mCanBuyPolicy;
 	private CityPolicy mNumHavePolicy;
 	private CityPolicy mLoanIndexPolicy;
@@ -49,7 +47,6 @@ public class MainActivity extends BaseFragmentActivity {
 	private boolean mIsResulted = false;
 
 	private static final String TITLE_TEST = "购房资格测试";
-	private static final String TITLE_RESULT = "测试结果";
 	private static final String TITLE_RESULT_NONE = "您目前没有买房资格";
 	private static final String TITLE_RESULT_ONE = "您可以购买一套房";
 	private static final String TITLE_RESULT_TWO = "您可以购买两套房";
@@ -58,19 +55,19 @@ public class MainActivity extends BaseFragmentActivity {
 	private static final String SHARE = "分享";
 
 	private static final String SEPARATOR = ".";
-	
+
 	private static final String SHARE_PREFIX = "我的#房贷资格测试#结果：“";
 	private static final String SHARE_PREFIX_TWO_BUG = "可以在";
 	private static final String SHARE_PREFIX_TWO_BUG_SUFFIX = "贷款买房";
 	private static final String SHARE_PREFIX_TWO_BUG_LOAN_TWO = "，首付3成，利率85折";
 	private static final String SHARE_PREFIX_TWO_BUG_LOAN_ONE = "，首付7成，利率1.1";
-	
+
 	private static final String SHARE_PREFIX_ALL_BUY_SUFFIX = "全款买房";
 	private static final String SHARE_PREFIX_ALL_BUG_PREFIX = "只能在";
-	
+
 	private static final String SHARE_PREFFIX_NO_BUY_PREFIX = "不能在";
 	private static final String SHARE_PREFIX_NO_BUY_SUFFIX = "买房";
-	
+
 	private static final String SHARE_LINK = "”。你也来测试一下吧，测试地址：http://www.rong360.com/calculator/xiangou";
 
 	@Override
@@ -83,33 +80,37 @@ public class MainActivity extends BaseFragmentActivity {
 
 		getSupportActionBar().setTitle(TITLE_TEST);
 
-		Log.i(TAG, "load");
 		loadFragment(mStep);
-		
+
 		initUmeng();
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		
 	}
 
 	private void initUmeng() {
-//		com.umeng.common.Log.LOG = true;
+		// com.umeng.common.Log.LOG = true;
 		MobclickAgent.updateOnlineConfig(this);
 		UmengUpdateAgent.setUpdateAutoPopup(false);
 		UmengUpdateAgent.update(this);
 		UmengUpdateAgent.setUpdateListener(mUpdateCallback);
 	}
-	
+
 	private UmengUpdateListener mUpdateCallback = new UmengUpdateListener() {
 		@Override
-		public void onUpdateReturned(int updateStatus,
-				UpdateResponse updateInfo) {
+		public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
 			switch (updateStatus) {
 			case 0: // has update
-				UmengUpdateAgent.showUpdateDialog(MainActivity.this, updateInfo);
+				UmengUpdateAgent
+						.showUpdateDialog(MainActivity.this, updateInfo);
 				break;
 			}
 
 		}
 	};
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,8 +132,7 @@ public class MainActivity extends BaseFragmentActivity {
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_TITLE, "share");
 				String shareContent = getShareContent();
-				intent.putExtra(
-						Intent.EXTRA_TEXT, shareContent);
+				intent.putExtra(Intent.EXTRA_TEXT, shareContent);
 				startActivity(Intent.createChooser(intent, "Please choose..."));
 			}
 
@@ -146,19 +146,31 @@ public class MainActivity extends BaseFragmentActivity {
 		String ciyt = mValue.getCityNameById(mCityId);
 		sb.append(SHARE_PREFIX);
 		if (mLoanBuy == 0 && (mLeftBuy > 0)) {
-			sb.append(SHARE_PREFIX_ALL_BUG_PREFIX).append(ciyt).append(SHARE_PREFIX_ALL_BUY_SUFFIX);
+			sb.append(SHARE_PREFIX_ALL_BUG_PREFIX).append(ciyt)
+					.append(SHARE_PREFIX_ALL_BUY_SUFFIX);
 		} else if (mLeftBuy == 2) {
 			if (mLoanBuy == 1) {
-				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_TWO);
+				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt)
+						.append(SHARE_PREFIX_TWO_BUG_SUFFIX)
+						.append(SHARE_PREFIX_TWO_BUG_LOAN_TWO);
 			} else if (mLoanBuy == 2) {
-				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
-			} 
+				sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt)
+						.append(SHARE_PREFIX_TWO_BUG_SUFFIX)
+						.append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
+			}
 		} else if (mLeftBuy == 1) {
-			sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt).append(SHARE_PREFIX_TWO_BUG_SUFFIX).append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
+			sb.append(SHARE_PREFIX_TWO_BUG).append(ciyt)
+			.append(SHARE_PREFIX_TWO_BUG_SUFFIX);
+			if (mLoanBuy == 2) {
+				sb.append(SHARE_PREFIX_TWO_BUG_LOAN_ONE);
+			} else if (mLoanBuy == 1) {
+				sb.append(SHARE_PREFIX_TWO_BUG_LOAN_TWO);
+			}
 		} else if (mLeftBuy <= 0) {
-			sb.append(SHARE_PREFFIX_NO_BUY_PREFIX).append(ciyt).append(SHARE_PREFIX_NO_BUY_SUFFIX);
+			sb.append(SHARE_PREFFIX_NO_BUY_PREFIX).append(ciyt)
+					.append(SHARE_PREFIX_NO_BUY_SUFFIX);
 		}
-		
+
 		sb.append(SHARE_LINK);
 		return sb.toString();
 	}
@@ -205,7 +217,7 @@ public class MainActivity extends BaseFragmentActivity {
 	};
 
 	protected void loadFragment(int checkedId) {
-		Log.i(TAG, "step: " + mStep + " checkedId:" + checkedId);
+//		Log.i(TAG, "step: " + mStep + " checkedId:" + checkedId);
 
 		String title = "";
 		ArrayList<Option> ops = new ArrayList<Option>();
@@ -252,8 +264,8 @@ public class MainActivity extends BaseFragmentActivity {
 					showResult();
 					mAnswers.add(checkedId);
 					mStep++;
-					Log.i(TAG, "elem size: " + mElements.size()
-							+ " answers size: " + mAnswers.size());
+//					Log.i(TAG, "elem size: " + mElements.size()
+//							+ " answers size: " + mAnswers.size());
 					return;
 				}
 
@@ -275,8 +287,8 @@ public class MainActivity extends BaseFragmentActivity {
 						mAnswers.add(checkedId);
 						mStep++;
 
-						Log.i(TAG, "elem size: " + mElements.size()
-								+ " answers size: " + mAnswers.size());
+//						Log.i(TAG, "elem size: " + mElements.size()
+//								+ " answers size: " + mAnswers.size());
 						return;
 					}
 
@@ -309,6 +321,7 @@ public class MainActivity extends BaseFragmentActivity {
 					ops.add(op);
 				}
 				title = (mStep + 2) + SEPARATOR + elem.getTitle();
+				nextElemId = elem.getElementId();
 			}
 
 		}
@@ -316,8 +329,8 @@ public class MainActivity extends BaseFragmentActivity {
 			mStep++;
 		}
 
-		Log.i(TAG, "elem size: " + mElements.size() + " answers size: "
-				+ mAnswers.size());
+//		Log.i(TAG, "elem size: " + mElements.size() + " answers size: "
+//				+ mAnswers.size());
 
 		mDesc = mValue.getCalcDescByElemId(nextElemId, mCityId);
 		PollFragment poll = PollFragment.newInstance(ops, title, mDesc,
@@ -337,7 +350,9 @@ public class MainActivity extends BaseFragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		Log.i(TAG, "elems:" + mElements.size() + " mstep:" + mStep);
+//		Log.i(TAG,
+//				"before elems:" + mElements.size() + "answers: "
+//						+ mAnswers.size() + " mstep:" + mStep);
 		if (mIsResulted) {
 			if (mLoanBuy != 0) {
 				mLoanBuy = 0;
@@ -385,6 +400,9 @@ public class MainActivity extends BaseFragmentActivity {
 		}
 
 		// mIsBack = true;
+//		Log.i(TAG,
+//				"after elems:" + mElements.size() + "answers: "
+//						+ mAnswers.size() + " mstep:" + mStep);
 		super.onBackPressed();
 	}
 
@@ -408,6 +426,8 @@ public class MainActivity extends BaseFragmentActivity {
 		mIsResulted = true;
 		ResultFragment rf = ResultFragment.newInstance(mCityId, mLeftBuy,
 				mLoanBuy, mAnswers, mElements, mClearListener);
+		
+		Log.i(TAG, "leftBuy:" + mLeftBuy + " loadBuy:" + mLoanBuy);
 		String title = TITLE_RESULT_NONE;
 		if (mLeftBuy == 2) {
 			title = TITLE_RESULT_TWO;
@@ -434,6 +454,19 @@ public class MainActivity extends BaseFragmentActivity {
 		mElements.clear();
 		mAnswers.clear();
 		mLoanBuy = 0;
+		mLeftBuy = 0;
+		if (mLoanIndexPolicy != null) {
+			mLoanIndexPolicy = null;
+		}
+
+		if (mNumHavePolicy != null) {
+			mNumHavePolicy = null;
+		}
+
+		mIsResulted = false;
+		mIsBack = false;
+		// mValue.clear();
+		// GlobalValue.init(this);
 
 		loadFragment(-1);
 	}

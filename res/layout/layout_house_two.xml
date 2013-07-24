@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
     <LinearLayout 
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         
@@ -16,10 +16,11 @@
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_left"
-	        android:layout_marginTop="54dp"
+	        android:layout_marginTop="48dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="44dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
 	        android:src="@drawable/ic_two_house"
 	        />
 	    
@@ -29,7 +30,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="18dp"
-	        android:layout_marginLeft="20dp"
+	        android:layout_marginLeft="6dp"
 	        android:textColor="@color/ratio_color"
 	        android:textSize="14sp"
 	        android:text="首付3成"
@@ -41,7 +42,7 @@
 	        android:layout_alignLeft="@id/tv_pay_left"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="6.55%"
+	        android:text="5.57%"
 	        android:textSize="24sp"
 	        android:layout_marginTop="5dp"
 	        android:textColor="@color/ratio_color"
@@ -55,23 +56,29 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom"
+	        android:layout_marginBottom="2dp"
 	        android:textSize="14sp"
 	        android:text="基准利率85折"/>
     
     </RelativeLayout>
     
+    <ImageView 
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/divider_vertical"
+        />
+    
     <RelativeLayout 
-        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_right"
-	        android:layout_marginTop="54dp"
+	        android:layout_marginTop="48dp"
+	        android:layout_centerHorizontal="true"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_two_house"
-	        android:layout_centerHorizontal="true"
 	        />
 	    
 	    <TextView 
@@ -81,7 +88,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="18dp"
 	        android:textColor="@color/ratio_color"
-	        android:layout_marginLeft="20dp"
+	        android:layout_marginLeft="16dp"
 	        android:textSize="14sp"
 	        android:text="首付7成"
 	         />
@@ -107,6 +114,7 @@
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom"
 	        android:textSize="14sp"
+	        android:layout_marginBottom="2dp"
 	        android:text="1.1倍利率"/>
     
     </RelativeLayout>
@@ -115,7 +123,7 @@
     
     <TextView 
         android:id="@+id/tv_base"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="34dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="基准利率：6.55%"

@@ -2,7 +2,6 @@ package com.rong.realestateqq.activity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
 
 import com.rong.realestateqq.R;
 import com.rong.realestateqq.exception.JsonParseException;
@@ -21,7 +20,7 @@ public class PushReceiverActivity extends BaseActionBar {
 	private final String XG_LINK = "http://www.rong360.com/calculator/xiangou";
 	private String mLink = XG_LINK;
 	
-	private WebView mWebView;
+//	private WebView mWebView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,12 +44,12 @@ public class PushReceiverActivity extends BaseActionBar {
 	}
 	
 	private void initContent() {
-		mWebView.getSettings().setJavaScriptEnabled(true);
-		mWebView.getSettings().setLoadWithOverviewMode(true);
-		mWebView.getSettings().setUseWideViewPort(true);
-
-		mWebView.getSettings().setBuiltInZoomControls(true);
-		mWebView.getSettings().setSupportZoom(true);
+//		mWebView.getSettings().setJavaScriptEnabled(true);
+//		mWebView.getSettings().setLoadWithOverviewMode(true);
+//		mWebView.getSettings().setUseWideViewPort(true);
+//
+//		mWebView.getSettings().setBuiltInZoomControls(true);
+//		mWebView.getSettings().setSupportZoom(true);
 //		mWebView.loadUrl(mLink);
 		Log.i(TAG, mLink);
 		IntentUtil.startWeb(this, mLink);
@@ -59,7 +58,7 @@ public class PushReceiverActivity extends BaseActionBar {
 
 	@Override
 	protected void initElements() {
-		mWebView = (WebView) findViewById(R.id.push_view);
+//		mWebView = (WebView) findViewById(R.id.push_view);
 	}
 
 	@Override

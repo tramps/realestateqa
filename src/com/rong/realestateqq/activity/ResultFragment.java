@@ -2,10 +2,6 @@ package com.rong.realestateqq.activity;
 
 import java.util.ArrayList;
 
-import com.rong.realestateqq.R;
-import com.rong.realestateqq.model.CityElement;
-import com.rong.realestateqq.util.GlobalValue;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,13 +17,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rong.realestateqq.R;
+import com.rong.realestateqq.model.CityElement;
+import com.rong.realestateqq.util.GlobalValue;
+
 public class ResultFragment extends Fragment {
 	private static final String TAG = "ResultFragment";
 
 	private int[] mHouseLayout = { R.layout.layout_house_two,
 			R.layout.layout_house_two_one, R.layout.layout_house_two_none,
-			R.layout.layout_hourse_one, R.layout.layout_house_one_none,
-			R.layout.layout_house_zero };
+			R.layout.layout_hourse_one_one, R.layout.layout_hourse_one_two,
+			R.layout.layout_house_one_none, R.layout.layout_house_zero };
 
 	private int mCityId;
 	private int mLeftBuy;
@@ -71,13 +71,13 @@ public class ResultFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 
 		Activity ac = getActivity();
-//		LinearLayout llHouse = (LinearLayout) ac.findViewById(R.id.ll_house);
+		// LinearLayout llHouse = (LinearLayout) ac.findViewById(R.id.ll_house);
 		FrameLayout flHouse = (FrameLayout) ac.findViewById(R.id.fl_house);
 		LinearLayout llPoll = (LinearLayout) ac.findViewById(R.id.ll_poll);
 		Button btnRestart = (Button) ac.findViewById(R.id.btn_restart);
 		btnRestart.setOnClickListener(mListener);
 
-		int index = 5;
+		int index = 6;
 		if (mLeftBuy == 2) {
 			if (mLoanBuy == 2) {
 				index = 1;
@@ -89,8 +89,10 @@ public class ResultFragment extends Fragment {
 		} else if (mLeftBuy == 1) {
 			if (mLoanBuy == 1) {
 				index = 3;
-			} else {
+			} else if (mLoanBuy == 2){
 				index = 4;
+			} else {
+				index = 5;
 			}
 		}
 		flHouse.addView(LayoutInflater.from(ac).inflate(mHouseLayout[index],
@@ -109,12 +111,12 @@ public class ResultFragment extends Fragment {
 							+ elem.getOptionDescByValue(mAnswers.get(i)));
 				} catch (Exception e) {
 					Log.e(TAG, e.toString());
-//					elem = mElements.get(i-2);
-//					i++;
+					// elem = mElements.get(i-2);
+					// i++;
 				}
 			}
 		}
-		
+
 		AnswerAdaper adapter = new AnswerAdaper(ac, items);
 		for (int i = 0; i < adapter.getCount(); i++) {
 			llPoll.addView(adapter.getView(i, null, null));

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="4dp"
+    android:paddingTop="4dp"  
     android:paddingBottom="4dp"
     android:orientation="horizontal" >
     
@@ -11,6 +11,8 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:maxLines="3"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         />

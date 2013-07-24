@@ -2,6 +2,8 @@ package com.rong.realestateqq.model;
 
 import java.util.HashMap;
 
+import android.util.Log;
+
 import com.rong.realestateqq.json.JSONBean;
 
 public class CityPolicy implements JSONBean{
@@ -10,6 +12,8 @@ public class CityPolicy implements JSONBean{
 	public static final String TOKEN_CAN_BUY = "can_buy";
 	public static final String TOKEN_NUMBER_HAVE = "num_have";
 	public static final String TOKEN_LOAN_INDEX = "loan_index";
+
+	private static final String TAG = "CityPolicy";
 	
 	public int mId;
 	public int mPolicy_Id;
@@ -128,8 +132,15 @@ public class CityPolicy implements JSONBean{
 				if (count > maxCount) {
 					nextElemId = key;
 					maxCount = count;
+				} else if (count == maxCount) {
+					Log.i(TAG, "equals :" + key + " " + nextElemId);
+					if (nextElemId > key) {
+						nextElemId = key;
+					}
 				}
 			}
+			
+			Log.i(TAG, "maxCount: " + maxCount + " nextElemID: " + nextElemId);
 		}
 		
 		return nextElemId;

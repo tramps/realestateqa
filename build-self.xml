@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-<project name="ant" default="release" >  
+<project name="ant" default="package" >  
     <!-- ANT环境变量 -->  
     <property environment="env" /> 
 	<property file="build.properties" />
@@ -32,7 +32,7 @@
     <property name="android-jar" value="${sdk-platform-folder}/android.jar" />  
     
 	<!-- -->
-	<property name="channelname" value="UMENG_CHANNEL" />  
+	<property name="channelname" value="umeng" />  
 	<property name="channelkey" value="test" />  
 		
     <!-- 编译aidl文件所需的预处理框架文件framework.aidl -->  
@@ -214,39 +214,5 @@
             <arg value="${srcdir-ospath}" />  
         </exec>  
     </target>  
-	
-	<!-- 对apk进行签证 -->  
-    <target name="jarsigner" depends="package">  
-        <echo>Packaging signed apk for release...</echo>  
-        <exec executable="${jarsigner}" failonerror="true">  
-            <arg value="-keystore" />  
-            <arg value="${keystore-file}" />  
-            <arg value="-storepass" />  
-            <arg value="123456" />  
-            <arg value="-keypass" />  
-            <arg value="123456" />  
-            <arg value="-signedjar" />  
-            <arg value="${out-signed-package-ospath}" />  
-            <arg value="${out-unsigned-package-ospath}"/>  
-            <!-- 不要忘了证书的别名 -->  
-            <arg value="demo.keystore"/>  
-        </exec>  
-    </target>  
-	
-	<!-- 发布 -->  
-    <target name="release" depends="jarsigner">  
-        <!-- 删除未签证apk -->  
-        <delete file="${out-unsigned-package-ospath}"/>  
-        <echo>APK is released. path:${out-signed-package-ospath}</echo>  
-    </target>  
-	
-	<target name="zipalign" depends="release">
-		<exec executable="${zipalign}" failonerror="true">
-            <arg value="-v" />
-            <arg value="4" />
-            <arg value="${out-signed-package-ospath}" />
-            <arg value="${out-signed-package-ospath}-zipaligned.apk" />
-        </exec>
-	</target>
 	
 	</project>  

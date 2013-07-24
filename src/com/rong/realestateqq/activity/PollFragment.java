@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioGroup.LayoutParams;
 import android.widget.TextView;
 
@@ -36,6 +35,8 @@ public class PollFragment extends Fragment {
 //	private OnCheckedChangeListener mListener;
 	private OnClickListener mListener;
 	private int mSeleted = -1;
+	
+	private static final String PRE_KEY_SELECTED = "pre_key_selected";
 
 	public static PollFragment newInstance(ArrayList<Option> option,
 			String title, CalcDesc desc, OnClickListener listener) {
@@ -63,18 +64,27 @@ public class PollFragment extends Fragment {
 	public PollFragment() {
 		super();
 	}
-
+	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_poll, null);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+		if (savedInstanceState != null) {
+			mSeleted = savedInstanceState.getInt(PRE_KEY_SELECTED);
+		}
+		
+		Log.i(TAG, "oncreate");
+		
 	}
-
+	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		Log.i(TAG, "activity created");
-
+	public void onResume() {
+		super.onResume();
+		Log.i(TAG, "selected" + mSeleted);
+		initContent();
+	}
+	
+	private void initContent() {
 		Activity ac = getActivity();
 		tvTitle = (TextView) ac.findViewById(R.id.tv_title);
 		rgOption = (LinearLayout) ac.findViewById(R.id.ll_option);
@@ -83,12 +93,13 @@ public class PollFragment extends Fragment {
 		lvSample = (LinearLayout) ac.findViewById(R.id.lv_sample);
 
 		LayoutParams params = new LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		params.leftMargin = 0;
 		params.rightMargin = 0;
 
 		tvTitle.setText(mTitle);
 		
+		rgOption.removeAllViewsInLayout();
 		OptionAdapter opAdapter = new OptionAdapter(ac, mOptions);
 		for (int i = 0; i < opAdapter.getCount(); i++) {
 			rgOption.addView(opAdapter.getView(i, null, null), params);
@@ -122,11 +133,33 @@ public class PollFragment extends Fragment {
 				samples.add(mDesc.getSample3());
 			}
 
+			lvSample.removeAllViewsInLayout();
 			mAdapter = new SampleAdapter(ac, samples);
 			for (int i = 0; i < mAdapter.getCount(); i++) {
 				lvSample.addView(mAdapter.getView(i, null, null));
 			}
+		} 
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		if (savedInstanceState != null) {
+			mSeleted = savedInstanceState.getInt(PRE_KEY_SELECTED); 
 		}
+		return inflater.inflate(R.layout.fragment_poll, null);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putInt(PRE_KEY_SELECTED, mSeleted);
+		super.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
 	}
 	
 	private class OptionAdapter extends BaseAdapter {
@@ -163,7 +196,9 @@ public class PollFragment extends Fragment {
 			}
 			
 			ImageView iv = (ImageView) convertView.findViewById(R.id.iv_check);
+//			RadioButton iv = (RadioButton) convertView.findViewById(R.id.iv_check);
 			TextView tv = (TextView) convertView.findViewById(R.id.tv_desc);
+			View divider = convertView.findViewById(R.id.divider);
 			final Option o = getItem(position);
 			tv.setText(o.getDesc());
 			convertView.setTag(o.getValue());
@@ -181,6 +216,13 @@ public class PollFragment extends Fragment {
 				Log.i(TAG, "setted");
 				iv.setSelected(true);
 				iv.setPressed(true);
+//				iv.setChecked(true);
+			}
+			
+			if (position == mOps.size() - 1) {
+				divider.setVisibility(View.GONE);
+			} else {
+				divider.setVisibility(View.VISIBLE);
 			}
 			
 			return convertView;

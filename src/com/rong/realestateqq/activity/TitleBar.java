@@ -102,7 +102,7 @@ public class TitleBar extends RelativeLayout implements OnClickListener {
 			act.onCreateOptionsMenu(mMenuImpl);
 		}
 		int lastId = 0;
-		int margin = DisplayUtils.getPixel(context, 20);
+		int margin = DisplayUtils.getPixel(context, 10);
 		for (int i = 0; i < mMenuImpl.size(); i++) {
 			MenuItem menuItem = mMenuImpl.getItem(i);
 			View itemView;

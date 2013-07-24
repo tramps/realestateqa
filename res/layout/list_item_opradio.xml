@@ -13,28 +13,23 @@
 	    android:paddingBottom="12dp"
 	    android:background="@drawable/bkg_rg"
 	    android:orientation="horizontal" >
-	    <ImageView 
+	    <RadioButton 
 	        android:id="@+id/iv_check"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:duplicateParentState="true"
 	        android:layout_marginLeft="16dp"
-	        android:layout_gravity="center_vertical"
-	        android:background="@drawable/ic_radiobutton"
+	        android:button="@drawable/ic_radiobutton"
 	        />
-	    
 	    <TextView 
 	        android:id="@+id/tv_desc"
 	        android:layout_marginLeft="5dp"
-	        android:textSize="18sp"
-	        android:layout_gravity="center_vertical"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        />
-	
 	</LinearLayout>
 	
 	<View 
-	    android:id="@+id/divider"
 	    android:layout_marginLeft="16dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="1dp"

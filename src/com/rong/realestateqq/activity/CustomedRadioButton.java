@@ -1,11 +1,11 @@
 package com.rong.realestateqq.activity;
 
-import com.rong.realestateqq.R;
-import com.rong.realestateqq.util.DisplayUtils;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.RadioButton;
+
+import com.rong.realestateqq.R;
+import com.rong.realestateqq.util.DisplayUtils;
 
 public class CustomedRadioButton extends RadioButton {
 
