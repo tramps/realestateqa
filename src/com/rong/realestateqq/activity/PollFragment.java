@@ -59,6 +59,8 @@ public class PollFragment extends Fragment {
 		mDesc = desc;
 		mListener = listener;
 		mSeleted = selected;
+		
+//		Log.i(TAG, title);
 	}
 
 	public PollFragment() {

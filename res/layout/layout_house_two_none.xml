@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingBottom="8dp"
     android:orientation="vertical" >
     
     <LinearLayout 
@@ -17,12 +19,11 @@
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_left"
-	        android:layout_marginTop="48dp"
-	        android:layout_marginLeft="30dp"
+	        android:layout_marginTop="30dp"
 	        android:layout_marginRight="54dp"
+	        android:layout_centerHorizontal="true"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
 	        android:src="@drawable/ic_two_house"
 	        />
 	    
@@ -33,7 +34,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="20dp"
-	        android:textSize="28sp"
+	        android:textSize="22sp"
 	        android:text="全款购买"
 	         />
     
@@ -42,22 +43,24 @@
      <ImageView 
         android:layout_width="1dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="15dp"
         android:src="@drawable/divider_vertical"
         />
     
     <RelativeLayout 
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_right"
-	        android:layout_marginTop="48dp"
-	        android:layout_marginLeft="30dp"
+	        android:layout_marginTop="30dp"
+	        android:layout_centerHorizontal="true"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_two_house"
-	        android:layout_centerHorizontal="true"
 	        />
 	    
 	    <TextView 
@@ -68,7 +71,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="20dp"
-	        android:textSize="28sp"
+	        android:textSize="22sp"
 	        android:text="全款购买"
 	         />
     

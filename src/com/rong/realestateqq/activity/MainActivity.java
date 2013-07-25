@@ -47,10 +47,8 @@ public class MainActivity extends BaseFragmentActivity {
 	private boolean mIsResulted = false;
 
 	private static final String TITLE_TEST = "购房资格测试";
-	private static final String TITLE_RESULT_NONE = "您目前没有买房资格";
-	private static final String TITLE_RESULT_ONE = "您可以购买一套房";
-	private static final String TITLE_RESULT_TWO = "您可以购买两套房";
-
+	private static final String TITLE_RESULT = "测试结果";
+	
 	private static final String SETTING = "关于";
 	private static final String SHARE = "分享";
 
@@ -428,12 +426,12 @@ public class MainActivity extends BaseFragmentActivity {
 				mLoanBuy, mAnswers, mElements, mClearListener);
 		
 		Log.i(TAG, "leftBuy:" + mLeftBuy + " loadBuy:" + mLoanBuy);
-		String title = TITLE_RESULT_NONE;
-		if (mLeftBuy == 2) {
-			title = TITLE_RESULT_TWO;
-		} else if (mLeftBuy == 1) {
-			title = TITLE_RESULT_ONE;
-		}
+		String title = TITLE_RESULT;
+//		if (mLeftBuy == 2) {
+//			title = TITLE_RESULT_TWO;
+//		} else if (mLeftBuy == 1) {
+//			title = TITLE_RESULT_ONE;
+//		}
 		getSupportActionBar().setTitle(title);
 
 		((Button) getSupportActionBar().findViewById(R.id.setting))

@@ -1,6 +1,9 @@
 package com.rong.realestateqq.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
@@ -21,11 +24,26 @@ public class MyApplication extends Application {
 	}
 
 	private void onAppStart() {
+		setUpdateTime();
+
 		BaseHttpsManager.init(getApplicationContext());
 		GlobalValue.init(getApplicationContext());
 		NetHelper.updateModel(getApplicationContext());
-		
+
 		initParse();
+	}
+
+	private void setUpdateTime() {
+		SharedPreferences sp = getSharedPreferences(NetHelper.PREFERENCE_NET,
+				Context.MODE_PRIVATE);
+		long lastUpdate = sp.getLong(NetHelper.PRE_KEY_UPDATE_TIME, 0);
+		if (lastUpdate == 0) {
+			lastUpdate = System.currentTimeMillis() / 1000;
+			Editor e = sp.edit();
+			e.putLong(NetHelper.PRE_KEY_UPDATE_TIME, lastUpdate);
+			e.commit();
+		}
+
 	}
 
 	private void initParse() {
@@ -34,5 +52,5 @@ public class MyApplication extends Application {
 		NetHelper.subscribe2Parse(this);
 		ParseInstallation.getCurrentInstallation().saveInBackground();
 	}
-	
+
 }

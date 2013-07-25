@@ -17,7 +17,7 @@ public class PushReceiverActivity extends BaseActionBar {
 	
 	private static final String TAG = "PushReceiverActivity";
 	
-	private final String XG_LINK = "http://www.rong360.com/calculator/xiangou";
+	private final String XG_LINK = "http://www.rong360.com";
 	private String mLink = XG_LINK;
 	
 //	private WebView mWebView;

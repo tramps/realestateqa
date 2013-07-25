@@ -3,6 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        >
+    
+    <TextView 
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="16dp"
+		android:textSize="22sp"
+		android:textStyle="bold"
+		android:textColor="@color/ratio_color"        
+        />
 
     <LinearLayout
         android:id="@+id/ll_house"
@@ -17,11 +35,12 @@
             android:layout_gravity="center_horizontal" >
         </FrameLayout>
     </LinearLayout>
+    
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/divider_light" />
 
     <LinearLayout

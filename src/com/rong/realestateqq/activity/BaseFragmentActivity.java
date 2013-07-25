@@ -55,7 +55,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity{
 	}
 	
 	public TitleBar getSupportActionBar() {
-		return getSupportActionBar(false);
+		return getSupportActionBar(true);
 	}
 
 	public TitleBar getSupportActionBar(boolean isCenter) {

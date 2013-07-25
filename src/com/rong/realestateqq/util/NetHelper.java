@@ -28,9 +28,11 @@ public class NetHelper {
 	public static final String DEFAULT_FOLDER = "model";
 	private static final String NO_UPDATE = "0";
 	
-	private static final String PREFERENCE_NET = "preference_net";
+	public static final String PREFERENCE_NET = "preference_net";
 	private static final String PRE_KEY_IS_SUBSCRIBED = "pre_key_is_subscribed";
 	private static final String PRE_KEY_DOMAIN = "pre_key_domain";
+	public static final String	PRE_KEY_UPDATE_TIME = "pre_key_update_time";
+	
 	private static final String SUFFIX_APK = "apk";
 
 	public static File getJsonModelFile(Context context) {
@@ -38,8 +40,9 @@ public class NetHelper {
 	}
 
 	public static void updateModel(final Context context) {
-		long time = System.currentTimeMillis() / 1000;
-		String url = API_DOMAIN + SUFFIX_UPDATE + time;
+		final SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NET, Context.MODE_PRIVATE);
+		long lastUpdateTime = sp.getLong(PRE_KEY_UPDATE_TIME, 0);
+		String url = API_DOMAIN + SUFFIX_UPDATE + lastUpdateTime;
 		UpdateTask task = new UpdateTask(context, url);
 		task.setCallback(new Callback() {
 
@@ -56,6 +59,9 @@ public class NetHelper {
 						DEFAULT_FILE);
 				FileUtil.writeFile(model, res);
 
+				Editor e = sp.edit();
+				e.putLong(PRE_KEY_UPDATE_TIME, System.currentTimeMillis() / 1000);
+				e.commit();
 				Log.i(TAG, "UPDATE SUCCESS");
 			}
 

@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
     android:orientation="vertical" >
 
 <RelativeLayout 
@@ -10,7 +11,7 @@
     
 	    <ImageView 
 	        android:id="@+id/iv_hourse_left"
-	        android:layout_marginTop="54dp"
+	        android:layout_marginTop="30dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_one_house"
@@ -36,8 +37,8 @@
 	        android:layout_alignLeft="@id/tv_pay_left"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="7.42%"
-	        android:layout_marginTop="5dp"
+	        android:text="7.21%"
+	        android:layout_marginTop="-3dp"
 	        android:textColor="@color/ratio_color"
 	        android:textSize="28sp"
 	         />

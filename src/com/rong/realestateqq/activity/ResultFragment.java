@@ -36,6 +36,10 @@ public class ResultFragment extends Fragment {
 	private ArrayList<CityElement> mElements;
 
 	private OnClickListener mListener;
+	
+	private static final String TITLE_RESULT_NONE = "您目前没有买房资格";
+	private static final String TITLE_RESULT_ONE = "您可以购买一套房";
+	private static final String TITLE_RESULT_TWO = "您可以购买两套房";
 
 	public ResultFragment() {
 		super();
@@ -71,11 +75,19 @@ public class ResultFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 
 		Activity ac = getActivity();
-		// LinearLayout llHouse = (LinearLayout) ac.findViewById(R.id.ll_house);
+		TextView tvResult = (TextView) ac.findViewById(R.id.tv_result);
 		FrameLayout flHouse = (FrameLayout) ac.findViewById(R.id.fl_house);
 		LinearLayout llPoll = (LinearLayout) ac.findViewById(R.id.ll_poll);
 		Button btnRestart = (Button) ac.findViewById(R.id.btn_restart);
 		btnRestart.setOnClickListener(mListener);
+		
+		String title = TITLE_RESULT_NONE;
+		if (mLeftBuy == 2) {
+			title = TITLE_RESULT_TWO;
+		} else if (mLeftBuy == 1) {
+			title = TITLE_RESULT_ONE;
+		}
+		tvResult.setText(title);
 
 		int index = 6;
 		if (mLeftBuy == 2) {
@@ -100,6 +112,7 @@ public class ResultFragment extends Fragment {
 
 		ArrayList<String> items = new ArrayList<String>();
 		GlobalValue gl = GlobalValue.getInts();
+		if (mAnswers != null && mElements != null)
 		for (int i = 0; i < mAnswers.size(); i++) {
 			if (i == 0) {
 				items.add("您所在的城市" + "#" + gl.getCityNameById(mCityId));
@@ -121,7 +134,6 @@ public class ResultFragment extends Fragment {
 		for (int i = 0; i < adapter.getCount(); i++) {
 			llPoll.addView(adapter.getView(i, null, null));
 		}
-
 	}
 
 	private class AnswerAdaper extends BaseAdapter {
