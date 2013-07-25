@@ -1,5 +1,7 @@
 package com.rong.realestateqq.application;
 
+import java.util.Calendar;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -38,7 +40,11 @@ public class MyApplication extends Application {
 				Context.MODE_PRIVATE);
 		long lastUpdate = sp.getLong(NetHelper.PRE_KEY_UPDATE_TIME, 0);
 		if (lastUpdate == 0) {
-			lastUpdate = System.currentTimeMillis() / 1000;
+			Calendar lastDate = Calendar.getInstance();
+			lastDate.set(Calendar.YEAR, 2013);
+			lastDate.set(Calendar.MONTH, Calendar.JULY);
+			lastDate.set(Calendar.DAY_OF_MONTH, 25);
+			lastUpdate = lastDate.getTimeInMillis() / 1000;
 			Editor e = sp.edit();
 			e.putLong(NetHelper.PRE_KEY_UPDATE_TIME, lastUpdate);
 			e.commit();
