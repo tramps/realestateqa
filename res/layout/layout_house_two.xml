@@ -13,7 +13,8 @@
         android:orientation="horizontal">
         
     <RelativeLayout 
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
@@ -21,7 +22,7 @@
 	        android:id="@+id/iv_hourse_left"
 	        android:layout_marginTop="30dp"
 	        android:layout_marginLeft="10dp"
-	        android:layout_marginRight="44dp"
+	        android:layout_marginRight="74dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_two_house"
@@ -61,20 +62,20 @@
 	        android:gravity="bottom"
 	        android:layout_marginBottom="2dp"
 	        android:textSize="14sp"
-	        android:text="基准利率85折"/>
+	        android:text=" 85折  "/>
     
     </RelativeLayout>
     
     <ImageView 
         android:layout_width="1dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:src="@drawable/divider_vertical"
         />
     
     <RelativeLayout 
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
@@ -121,7 +122,7 @@
 	        android:gravity="bottom"
 	        android:textSize="14sp"
 	        android:layout_marginBottom="2dp"
-	        android:text="1.1倍利率"/>
+	        android:text="  1.1倍"/>
     
     </RelativeLayout>
     

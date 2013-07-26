@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.ScrollView;
 
 import com.rong.realestateqq.R;
 import com.rong.realestateqq.model.CalcDesc;
@@ -67,6 +68,8 @@ public class MainActivity extends BaseFragmentActivity {
 	private static final String SHARE_PREFIX_NO_BUY_SUFFIX = "买房";
 
 	private static final String SHARE_LINK = "”。你也来测试一下吧，测试地址：http://www.rong360.com/calculator/xiangou";
+	
+	private ScrollView mScrollView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,11 @@ public class MainActivity extends BaseFragmentActivity {
 		loadFragment(mStep);
 
 		initUmeng();
+	}
+	
+	@Override
+	protected void initElement() {
+		mScrollView = (ScrollView) findViewById(R.id.myscrollview);
 	}
 	
 	@Override
@@ -467,6 +475,7 @@ public class MainActivity extends BaseFragmentActivity {
 		// GlobalValue.init(this);
 
 		loadFragment(-1);
+		mScrollView.scrollTo(0, 0);
 	}
 
 	private OnClickListener mClearListener = new OnClickListener() {
