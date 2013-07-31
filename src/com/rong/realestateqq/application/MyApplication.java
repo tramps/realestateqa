@@ -42,7 +42,7 @@ public class MyApplication extends Application {
 		if (lastUpdate == 0) {
 			Calendar lastDate = Calendar.getInstance();
 			lastDate.set(Calendar.YEAR, 2013);
-			lastDate.set(Calendar.MONTH, Calendar.JULY);
+			lastDate.set(Calendar.MONTH, Calendar.JUNE);
 			lastDate.set(Calendar.DAY_OF_MONTH, 25);
 			lastUpdate = lastDate.getTimeInMillis() / 1000;
 			Editor e = sp.edit();

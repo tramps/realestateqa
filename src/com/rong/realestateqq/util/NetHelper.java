@@ -43,6 +43,8 @@ public class NetHelper {
 		final SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NET, Context.MODE_PRIVATE);
 		long lastUpdateTime = sp.getLong(PRE_KEY_UPDATE_TIME, 0);
 		String url = API_DOMAIN + SUFFIX_UPDATE + lastUpdateTime;
+		
+		Log.i(TAG, "url: " + url);
 		UpdateTask task = new UpdateTask(context, url);
 		task.setCallback(new Callback() {
 

@@ -47,7 +47,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private boolean mIsResulted = false;
 
-	private static final String TITLE_TEST = "购房资格测试";
+	private static final String TITLE_TEST = "房贷资格测试";
 	private static final String TITLE_RESULT = "测试结果";
 	
 	private static final String SETTING = "关于";

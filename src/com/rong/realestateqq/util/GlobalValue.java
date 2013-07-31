@@ -61,13 +61,13 @@ public class GlobalValue {
 
 	public static void init(Context context) {
 		boolean hasInited = false;
-//		try {
-//			JsonHelper.parseJSONFromModel(context);
-//			Log.i(TAG, "init from model");
-//			hasInited = true;
-//		} catch (JsonParseException e) {
-//			Log.e(TAG, e.getMessage());
-//		}
+		try {
+			JsonHelper.parseJSONFromModel(context);
+			Log.i(TAG, "init from model");
+			hasInited = true;
+		} catch (JsonParseException e) {
+			Log.e(TAG, e.getMessage());
+		}
 
 		if (hasInited)
 			return;
