@@ -72,8 +72,8 @@
 	        android:layout_height="wrap_content"
 	        android:background="@drawable/ic_arrow"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignBottom="@id/tv_feedback"
-	        android:layout_marginRight="16dp"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="19dp"
 	        />
     
     </RelativeLayout>

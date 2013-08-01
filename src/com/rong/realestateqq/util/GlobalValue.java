@@ -147,9 +147,9 @@ public class GlobalValue {
 		if (elemId == -1 && cityId == -1) {
 			//city option
 			CalcDesc cityDesc = new CalcDesc();
-			cityDesc.setTips("购房贷款受理地与房产所在地相同，原则上您在哪里买房子，就在哪里申请贷款");
+			cityDesc.setTips("购房贷款受理地与房产所在地相同，原则上您在哪里买房子，就在哪里申请贷款。");
 			cityDesc.setSample1("我在北京上班，在北京交的社保公积金，想在老家广州买房子，可以在北京办公积金贷款吗？\r\n"
-					+ "专家答疑：您要买的房屋在广州，所以只能在广州办理贷款，城市请选择广州");
+					+ "您要买的房屋在广州，所以只能在广州办理贷款，城市请选择广州。");
 			return cityDesc;
 		}
 

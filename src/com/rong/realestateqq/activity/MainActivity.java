@@ -132,7 +132,7 @@ public class MainActivity extends BaseFragmentActivity {
 			if (btn.getText().equals(SETTING)) {
 				Intent intent = new Intent(this, AboutActivity.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_up, R.anim.top_up);
+//				overridePendingTransition(R.anim.push_up, R.anim.top_up);
 			} else {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
